@@ -8,3 +8,15 @@ before_install:
 # script sections contains all the different commands we need for the test to run
 script:
   - docker run -e CI=true kinaanaamir/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react" # name of the in AWS
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-east-1-306476627547" # travis takes all the files in the git repository and zip them up and place them in bucket_name (s3) which is a harddrive of aws. Then it informs elasticbeanstallk to reeploy using the new code.
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
