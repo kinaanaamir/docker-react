@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: 
+      context: . # context is specifying where from the files and folders for this image to be pulled from
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules # When you override the command we dont have volumes set up in that temperory container
+      - .:/app
+  tests:
+    build: 
+      context: . # context is specifying where from the files and folders for this image to be pulled from
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
