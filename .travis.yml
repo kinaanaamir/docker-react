@@ -1,0 +1,10 @@
+sudo: required # this specifices that we need sudo permission to travis for running docker
+services:
+  - docker
+
+before_install:
+  - docker build -t kinaanaamir/docker-react -f Dockerfile.dev .
+
+# script sections contains all the different commands we need for the test to run
+script:
+  - docker run -e CI=true kinaanaamir/docker-react npm run test
