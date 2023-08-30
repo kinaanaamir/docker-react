@@ -14,6 +14,8 @@ RUN npm run build
 # /app/build is going to contain the build directory
 # Second FROM command indicates that the above phase has ended. One phase can only have one FROM statement
 FROM nginx
+# Elastikbeanstalk will search for the expose command and map the port automatically.
+EXPOSE 80 
 COPY --from=builder /app/build /usr/share/nginx/html
 
 # default command of nginx is Start nginx so we do not have to start it up
